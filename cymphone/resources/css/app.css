@@ -1,0 +1,601 @@
+/* УЖАСНЫЙ ДИЗАЙН - НАМЕРЕННО ПЛОХОЙ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+body {
+    font-family: 'Comic Neue', Comic Sans MS, cursive, sans-serif;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbow 3s ease infinite;
+    color: #000;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border: 10px dashed #ff0000;
+    background: rgba(255, 255, 0, 0.3);
+}
+
+.container {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 10px;
+    width: 100%;
+}
+
+/* Header - УЖАСНЫЙ */
+.app-header {
+    background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff00ff);
+    border: 15px double #ffff00;
+    padding: 30px 10px;
+    text-align: center;
+    animation: shake 0.5s infinite;
+    box-shadow: 0 0 50px #ff00ff;
+}
+
+.app-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffff00;
+    text-shadow: 
+        5px 5px 0 #ff0000,
+        -5px -5px 0 #00ff00,
+        10px 10px 20px #0000ff;
+    animation: blink 1s infinite;
+    transform: rotate(-5deg);
+    letter-spacing: 10px;
+    text-decoration: underline wavy #ff00ff;
+}
+
+.app-title .icon {
+    font-size: 4rem;
+    color: #ff00ff;
+    animation: rotate 2s linear infinite;
+    display: inline-block;
+    text-shadow: 0 0 20px #ffff00;
+}
+
+/* Main Content */
+.app-main {
+    flex: 1;
+    padding: 50px 20px;
+    background: repeating-linear-gradient(
+        45deg,
+        #ffcccc,
+        #ffcccc 10px,
+        #ccffcc 10px,
+        #ccffcc 20px
+    );
+}
+
+/* Footer */
+.app-footer {
+    background: #000;
+    color: #ffff00;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    border-top: 5px solid #ff00ff;
+    animation: blink 2s infinite;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* Alerts - УЖАСНЫЕ */
+.alert {
+    display: block;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 10px ridge #ff0000;
+    background: #ffff00;
+    color: #ff0000;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-align: center;
+    animation: shake 0.3s infinite;
+    box-shadow: 0 0 30px #ff00ff, inset 0 0 30px #00ffff;
+    transform: rotate(2deg);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.alert-success {
+    background: #00ff00;
+    color: #000;
+    border-color: #ffff00;
+    animation: shake 0.2s infinite;
+}
+
+.alert-error {
+    background: #ff0000;
+    color: #ffff00;
+    border-color: #0000ff;
+    animation: shake 0.1s infinite;
+    font-size: 2rem;
+}
+
+.alert-icon {
+    font-size: 3rem;
+    display: block;
+    animation: rotate 1s linear infinite;
+}
+
+.alert-close {
+    background: #ff00ff;
+    border: 5px solid #ffff00;
+    color: #000;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px 20px;
+    float: right;
+    animation: blink 0.5s infinite;
+    font-weight: 900;
+}
+
+.alert-close:hover {
+    background: #00ffff;
+    transform: scale(2);
+}
+
+.error-list {
+    list-style: none;
+    padding: 0;
+}
+
+.error-list li {
+    margin: 10px 0;
+    padding: 10px;
+    background: #ff00ff;
+    color: #ffff00;
+    border: 3px solid #000;
+    animation: shake 0.2s infinite;
+}
+
+/* Page Header */
+.page-header {
+    display: block;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #ff00ff;
+    text-shadow: 
+        0 0 10px #ffff00,
+        0 0 20px #00ffff,
+        0 0 30px #ff0000;
+    animation: blink 1.5s infinite;
+    transform: rotate(3deg);
+    text-decoration: underline double #0000ff;
+    letter-spacing: 15px;
+    text-transform: uppercase;
+}
+
+/* Buttons - УЖАСНЫЕ */
+.btn {
+    display: inline-block;
+    padding: 20px 40px;
+    border: 8px outset #ff00ff;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 10px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    animation: shake 0.5s infinite;
+    box-shadow: 10px 10px 0 #000;
+    transform: rotate(-2deg);
+}
+
+.btn:hover {
+    animation: rotate 0.5s infinite, shake 0.2s infinite;
+    transform: scale(1.5) rotate(10deg);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+    background-size: 300% 300%;
+    animation: rainbow 1s ease infinite, shake 0.3s infinite;
+    color: #000;
+    border-color: #000;
+    text-shadow: 2px 2px 0 #fff;
+}
+
+.btn-secondary {
+    background: #808080;
+    color: #ffff00;
+    border-color: #ff00ff;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.btn-large {
+    padding: 30px 60px;
+    font-size: 2rem;
+    border-width: 12px;
+}
+
+.btn-icon {
+    font-size: 2rem;
+    animation: rotate 1s linear infinite;
+    display: inline-block;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 100px 50px;
+    background: repeating-linear-gradient(
+        0deg,
+        #ffcccc,
+        #ccffcc,
+        #ccccff,
+        #ffffcc
+    );
+    border: 20px double #ff00ff;
+    animation: shake 0.4s infinite;
+    transform: rotate(-1deg);
+}
+
+.empty-state-icon {
+    font-size: 8rem;
+    animation: rotate 2s linear infinite, blink 1s infinite;
+    display: block;
+    filter: drop-shadow(10px 10px 0 #ff0000);
+}
+
+.empty-state-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ff0000;
+    text-shadow: 5px 5px 0 #ffff00;
+    animation: blink 1s infinite;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    transform: rotate(5deg);
+}
+
+.empty-state-text {
+    color: #0000ff;
+    font-size: 2rem;
+    font-weight: 900;
+    text-decoration: underline wavy #ff00ff;
+    margin: 30px 0;
+}
+
+/* Tasks Grid */
+.tasks-grid {
+    display: block;
+    margin-bottom: 50px;
+}
+
+/* Task Card - УЖАСНАЯ */
+.task-card {
+    background: linear-gradient(135deg, #ffcccc, #ccffcc, #ccccff);
+    border: 15px ridge #ff00ff;
+    border-radius: 0;
+    padding: 30px;
+    margin: 30px 0;
+    animation: shake 0.6s infinite;
+    box-shadow: 
+        20px 20px 0 #ffff00,
+        -20px -20px 0 #00ffff;
+    transform: rotate(1deg);
+    position: relative;
+}
+
+.task-card::before {
+    content: '★';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    font-size: 3rem;
+    color: #ff00ff;
+    animation: rotate 3s linear infinite;
+}
+
+.task-card::after {
+    content: '★';
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    font-size: 3rem;
+    color: #ffff00;
+    animation: rotate 3s linear infinite reverse;
+}
+
+.task-card:hover {
+    animation: rotate 0.5s infinite, shake 0.1s infinite;
+    transform: scale(1.2) rotate(5deg);
+    border-color: #0000ff;
+    background: #ffff00;
+}
+
+.task-completed {
+    opacity: 0.5;
+    background: #808080;
+}
+
+.task-completed .task-title {
+    text-decoration: line-through;
+    text-decoration-color: #ff0000;
+    text-decoration-thickness: 5px;
+}
+
+.task-card-header {
+    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.task-status-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 80px;
+    text-align: center;
+    animation: rotate 2s linear infinite;
+    border: 10px double #000;
+}
+
+.status-pending {
+    background: #ffff00;
+    color: #ff0000;
+    border-color: #00ff00;
+}
+
+.status-completed {
+    background: #00ff00;
+    color: #0000ff;
+    border-color: #ff00ff;
+}
+
+.task-date {
+    font-size: 1.5rem;
+    color: #ff00ff;
+    font-weight: 900;
+    text-decoration: underline;
+    display: block;
+    margin-top: 10px;
+}
+
+.task-card-body {
+    margin-top: 20px;
+}
+
+.task-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #000;
+    text-shadow: 
+        3px 3px 0 #ffff00,
+        -3px -3px 0 #ff00ff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    word-break: break-all;
+    line-height: 1.2;
+}
+
+/* Tasks Stats */
+.tasks-stats {
+    display: block;
+    margin-top: 50px;
+}
+
+.stat-item {
+    background: #ffff00;
+    border: 10px groove #ff00ff;
+    padding: 40px;
+    margin: 30px 0;
+    text-align: center;
+    animation: shake 0.5s infinite;
+    transform: rotate(-2deg);
+    box-shadow: 15px 15px 0 #0000ff;
+}
+
+.stat-item:hover {
+    animation: rotate 1s infinite;
+    transform: scale(1.3) rotate(10deg);
+}
+
+.stat-value {
+    display: block;
+    font-size: 5rem;
+    font-weight: 900;
+    color: #ff0000;
+    text-shadow: 
+        5px 5px 0 #0000ff,
+        -5px -5px 0 #00ff00;
+    animation: blink 1s infinite;
+    margin-bottom: 20px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 2rem;
+    color: #0000ff;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    text-decoration: underline wavy #ff00ff;
+}
+
+/* Form Styles - УЖАСНЫЕ */
+.form-wrapper {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+}
+
+.task-form {
+    background: repeating-linear-gradient(
+        45deg,
+        #ffcccc,
+        #ccffcc,
+        #ccccff,
+        #ffffcc
+    );
+    border: 20px double #ff00ff;
+    border-radius: 0;
+    padding: 50px;
+    animation: shake 0.4s infinite;
+    box-shadow: 0 0 50px #ff00ff;
+    transform: rotate(-1deg);
+}
+
+.form-group {
+    margin-bottom: 40px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 900;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ff0000;
+    text-shadow: 3px 3px 0 #ffff00;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    animation: blink 2s infinite;
+}
+
+.required {
+    color: #0000ff;
+    font-size: 3rem;
+    animation: rotate 1s linear infinite;
+    display: inline-block;
+}
+
+.form-input {
+    width: 100%;
+    padding: 30px;
+    background: #ffff00;
+    border: 10px ridge #ff00ff;
+    color: #000;
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Comic Neue', Comic Sans MS, cursive;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: shake 0.3s infinite;
+    box-shadow: inset 0 0 20px #ff00ff;
+}
+
+.form-input:focus {
+    outline: 10px solid #00ffff;
+    background: #00ffff;
+    color: #ff0000;
+    animation: rotate 0.5s infinite;
+    transform: scale(1.1);
+}
+
+.input-error {
+    border-color: #ff0000;
+    background: #ffcccc;
+    animation: shake 0.1s infinite;
+}
+
+.form-error {
+    margin-top: 20px;
+}
+
+.error-text {
+    display: block;
+    color: #ff0000;
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: #ffff00;
+    padding: 10px;
+    border: 5px solid #000;
+    animation: blink 0.5s infinite;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.form-hint {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #0000ff;
+    font-weight: 900;
+    text-decoration: underline wavy #ff00ff;
+}
+
+.form-actions {
+    display: block;
+    margin-top: 50px;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-title {
+        font-size: 2rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .btn {
+        display: block;
+        width: 100%;
+        margin: 20px 0;
+    }
+}
+
+/* Дополнительные ужасные эффекты */
+body::before {
+    content: 'WELCOME!!!';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 255, 0.1);
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 10rem;
+    color: #ffff00;
+    text-align: center;
+    padding-top: 200px;
+    animation: blink 3s infinite, rotate 10s linear infinite;
+    text-shadow: 0 0 50px #ff00ff;
+    font-weight: 900;
+    letter-spacing: 50px;
+}

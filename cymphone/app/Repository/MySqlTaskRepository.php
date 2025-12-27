@@ -9,7 +9,7 @@ class MySqlTaskRepository implements TaskRepositoryInterface
 {
     public function findAll(): array
     {
-        $rows = Database::select('SELECT id, title, completed FROM tasks ORDER BY id DESC');
+        $rows = Database::select('SELECT id, title, completed, created_at FROM tasks ORDER BY id DESC');
         
         $tasks = [];
         foreach ($rows as $row) {
@@ -17,6 +17,7 @@ class MySqlTaskRepository implements TaskRepositoryInterface
             $task->setAttribute('id', $row->id);
             $task->setAttribute('title', $row->title);
             $task->setAttribute('completed', (bool)$row->completed);
+            $task->setAttribute('created_at', $row->created_at ?? null);
             $task->exists = true;
             $tasks[] = $task;
         }

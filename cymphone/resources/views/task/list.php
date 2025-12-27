@@ -1,105 +1,81 @@
-<!DOCTYPE html>
-<html lang="ru">
+<?php
+$title = 'Список задач';
+ob_start();
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список задач</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            margin-top: 0;
-        }
-        .btn-add {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .btn-add:hover {
-            background-color: #45a049;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            padding: 15px;
-            margin-bottom: 8px;
-            background-color: #fff;
-            border-radius: 4px;
-            border-left: 4px solid #ff9800;
-            display: flex;
-            align-items: center;
-        }
-        li.completed {
-            border-left-color: #4CAF50;
-            opacity: 0.8;
-        }
-        .task-status {
-            margin-right: 10px;
-            font-size: 18px;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-        }
-        .success-message {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Список задач</h1>
-        
-        <?php if (!empty($success)): ?>
-            <div class="success-message"><?= htmlspecialchars($success) ?></div>
-        <?php endif; ?>
-        
-        <a href="<?= route('task.add') ?>" class="btn-add">+ Добавить задачу</a>
-        
-        <?php if (empty($tasks)): ?>
-            <div class="empty-state">
-                <p>Задач пока нет.</p>
-                <p><a href="<?= route('task.add') ?>" class="btn-add">Добавьте первую задачу</a></p>
-            </div>
-        <?php else: ?>
-            <ul>
-                <?php foreach ($tasks as $task): ?>
-                    <li class="<?= $task->completed ? 'completed' : '' ?>">
-                        <span class="task-status">
-                            <?= $task->completed ? '✔' : '❌' ?>
-                        </span>
-                        <span><?= htmlspecialchars($task->title) ?></span>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+<div class="task-list-page">
+    <?php if (!empty($success)): ?>
+        <div class="alert alert-success" role="alert">
+            <span class="alert-icon">✓</span>
+            <span class="alert-message"><?= htmlspecialchars($success) ?></span>
+            <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+        </div>
+    <?php endif; ?>
+    
+    <?php if (!empty($error)): ?>
+        <div class="alert alert-error" role="alert">
+            <span class="alert-icon">⚠</span>
+            <span class="alert-message"><?= htmlspecialchars($error) ?></span>
+            <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+        </div>
+    <?php endif; ?>
+    
+    <div class="page-header">
+        <h2 class="page-title">Мои задачи</h2>
+        <a href="<?= route('task.add') ?>" class="btn btn-primary">
+            <span class="btn-icon">+</span>
+            Добавить задачу
+        </a>
     </div>
-</body>
+    
+    <?php if (empty($tasks)): ?>
+        <div class="empty-state">
+            <div class="empty-state-icon">📝</div>
+            <h3 class="empty-state-title">Задач пока нет</h3>
+            <p class="empty-state-text">Начните с добавления первой задачи</p>
+            <a href="<?= route('task.add') ?>" class="btn btn-primary btn-large">
+                <span class="btn-icon">+</span>
+                Добавить первую задачу
+            </a>
+        </div>
+    <?php else: ?>
+        <div class="tasks-grid">
+            <?php foreach ($tasks as $task): ?>
+                <div class="task-card <?= $task->completed ? 'task-completed' : '' ?>">
+                    <div class="task-card-header">
+                        <div class="task-status-badge <?= $task->completed ? 'status-completed' : 'status-pending' ?>">
+                            <?= $task->completed ? '✓' : '○' ?>
+                        </div>
+                        <?php if (isset($task->created_at)): ?>
+                            <span class="task-date"><?= date('d.m.Y', strtotime($task->created_at)) ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="task-card-body">
+                        <h3 class="task-title"><?= htmlspecialchars($task->title) ?></h3>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <div class="tasks-stats">
+            <div class="stat-item">
+                <span class="stat-value"><?= count($tasks) ?></span>
+                <span class="stat-label">Всего задач</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value"><?= count(array_filter($tasks, fn($t) => $t->completed)) ?></span>
+                <span class="stat-label">Выполнено</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value"><?= count(array_filter($tasks, fn($t) => !$t->completed)) ?></span>
+                <span class="stat-label">В работе</span>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
 
-</html>
+<?php
+$content = ob_get_clean();
+include __DIR__ . '/../layouts/app.php';
+?>
 

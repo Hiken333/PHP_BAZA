@@ -11,7 +11,7 @@ $container = $app->getContainer();
 
 // Загрузка конфигурации
 $repositoryConfig = require __DIR__ . '/../config/repository.php';
-$repositoryType = $repositoryConfig['type'] ?? 'mysql';
+$repositoryType = $repositoryConfig['type'] ?? 'file';
 
 // Регистрация репозитория
 if ($repositoryType === 'file') {

@@ -53,6 +53,9 @@ class FileTaskRepository implements TaskRepositoryInterface
                 if (isset($item['id'])) {
                     $task->setAttribute('id', $item['id']);
                 }
+                if (isset($item['created_at'])) {
+                    $task->setAttribute('created_at', $item['created_at']);
+                }
                 $task->exists = true;
                 $tasks[] = $task;
             }
@@ -74,6 +77,7 @@ class FileTaskRepository implements TaskRepositoryInterface
         }
         
         $task->setAttribute('id', $maxId + 1);
+        $task->setAttribute('created_at', date('Y-m-d H:i:s'));
         $tasks[] = $task;
 
         $data = [];
@@ -82,6 +86,7 @@ class FileTaskRepository implements TaskRepositoryInterface
                 'id' => $taskItem->getAttribute('id') ?? null,
                 'title' => $taskItem->getAttribute('title'),
                 'completed' => $taskItem->getAttribute('completed') ?? false,
+                'created_at' => $taskItem->getAttribute('created_at') ?? date('Y-m-d H:i:s'),
             ];
         }
 

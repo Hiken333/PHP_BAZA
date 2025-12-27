@@ -31,5 +31,13 @@ class Task
     {
         return $this->attributes;
     }
+
+    public function fill(array $attributes): self
+    {
+        foreach ($attributes as $key => $value) {
+            $this->setAttribute($key, $value);
+        }
+        return $this;
+    }
 }
 

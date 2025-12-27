@@ -2,7 +2,7 @@
     "name": "cymphone/framework",
     "type": "project",
     "description": "Cymphone framework application",
-    "keywords": ["cymphone", "framework"],
+    "keywords": ["task", "manager", "php"],
     "license": "MIT",
     "require": {
         "php": "^8.0",

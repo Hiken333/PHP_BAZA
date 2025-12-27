@@ -34,6 +34,11 @@ class Validator
                     if (is_string($value) && strlen($value) > $max) {
                         $this->errors[$field][] = "Поле {$field} не должно превышать {$max} символов";
                     }
+                } elseif (strpos($rule, 'min:') === 0 && !empty($value)) {
+                    $min = (int) substr($rule, 4);
+                    if (is_string($value) && strlen($value) < $min) {
+                        $this->errors[$field][] = "Поле {$field} должно содержать минимум {$min} символов";
+                    }
                 }
             }
         }
@@ -58,6 +63,11 @@ class Validator
             $all = array_merge($all, $errors);
         }
         return $all;
+    }
+
+    public function first(string $field): ?string
+    {
+        return $this->errors[$field][0] ?? null;
     }
 }
 
