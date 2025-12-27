@@ -13,27 +13,69 @@ class Database
     {
         if (self::$connection === null) {
             $basePath = dirname(__DIR__, 3);
-            $config = require $basePath . '/config/database.php';
-            $dbConfig = $config['connections'][$config['default']];
+            $configFile = $basePath . '/config/database.php';
+            
+            if (!file_exists($configFile)) {
+                throw new \Exception("Database configuration file not found: {$configFile}");
+            }
+            
+            $config = require $configFile;
+            
+            // Проверяем, что конфигурация существует и содержит необходимые ключи
+            if (!isset($config['default']) || !isset($config['connections'])) {
+                throw new \Exception("Invalid database configuration: missing 'default' or 'connections'");
+            }
+            
+            $defaultConnection = $config['default'];
+            
+            // Проверяем, что выбранное соединение существует
+            if (!isset($config['connections'][$defaultConnection])) {
+                throw new \Exception("Database connection '{$defaultConnection}' not found in configuration");
+            }
+            
+            $dbConfig = $config['connections'][$defaultConnection];
+            
+            // Проверяем, что все необходимые параметры присутствуют
+            $requiredKeys = ['host', 'port', 'database', 'username', 'password', 'charset'];
+            foreach ($requiredKeys as $key) {
+                if (!isset($dbConfig[$key])) {
+                    throw new \Exception("Missing required database configuration key: {$key}");
+                }
+            }
 
+            // Используем utf8mb4 и устанавливаем charset через опции PDO вместо DSN
             $dsn = sprintf(
-                'mysql:host=%s;port=%s;dbname=%s;charset=%s',
+                'mysql:host=%s;port=%s;dbname=%s',
                 $dbConfig['host'],
                 $dbConfig['port'],
-                $dbConfig['database'],
-                $dbConfig['charset']
+                $dbConfig['database']
             );
 
             try {
+                $options = [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+                ];
+                
+                // Устанавливаем charset через INIT_COMMAND, если указан
+                if (isset($dbConfig['charset']) && !empty($dbConfig['charset'])) {
+                    $charset = $dbConfig['charset'];
+                    // Используем безопасный способ установки charset
+                    $options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES '{$charset}'";
+                }
+                
                 self::$connection = new PDO(
                     $dsn,
                     $dbConfig['username'],
                     $dbConfig['password'],
-                    [
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-                    ]
+                    $options
                 );
+                
+                // Дополнительно устанавливаем charset после подключения
+                if (isset($dbConfig['charset']) && !empty($dbConfig['charset'])) {
+                    $charset = $dbConfig['charset'];
+                    self::$connection->exec("SET NAMES '{$charset}'");
+                }
             } catch (PDOException $e) {
                 throw new \Exception("Database connection failed: " . $e->getMessage());
             }
