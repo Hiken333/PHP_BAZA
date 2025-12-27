@@ -1,0 +1,28 @@
+{
+    "name": "cymphone/framework",
+    "type": "project",
+    "description": "Cymphone framework application",
+    "keywords": ["cymphone", "framework"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Cymphone\\": "src/Cymphone/"
+        },
+        "files": [
+            "helpers.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
+

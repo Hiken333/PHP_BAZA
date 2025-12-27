@@ -1,0 +1,11 @@
+* text=auto
+
+*.phps diff=php
+*.php diff=php
+*.css diff=css
+*.js diff=js
+*.json diff=json
+*.md diff=markdown
+*.xml diff=xml
+*.sql diff=sql
+
