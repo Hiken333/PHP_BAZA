@@ -1,8 +1,0 @@
-<?php
-
-return [
-    'driver' => 'file',
-    'lifetime' => 120,
-    'files' => storage_path('framework/sessions'),
-    'cookie' => 'laravel_session',
-];
